@@ -6,6 +6,7 @@
     <groupId>com.seal</groupId>
     <artifactId>springboot-code</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>springboot-code</name>
     <description>springboot整理</description>
