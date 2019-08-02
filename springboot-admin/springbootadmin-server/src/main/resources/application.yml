@@ -1,0 +1,41 @@
+server:
+  port: 2001
+spring:
+  application:
+    name: admin-server
+  # 集成spring security
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+  # 集成邮箱报警功能
+  # 当我们已注册的客户端的状态从 UP 变为 OFFLINE 或其他状态，服务端就会自动将电子邮件发送到上面配置的地址
+#  mail:
+#    # #(私人邮箱测试，企业邮箱和私人邮箱配置不同)
+#    host: smtp.163.com
+#    # 登录账号
+#    username: miles02
+#    # #密码(开启IMAP/SMTP服务颁发的授权码)
+#    password:
+#  boot:
+#    admin:
+#     notify:
+#       mail:
+#         to: fengzhiqiangzxx@163.com
+
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    # 其中获取ip，SpringCloud2.0版本对应的key值为${spring.cloud.clent.ip-address},而不是网上流传大多为${spring.cloud.clent.ipAddress}
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    # 集成spring security配置
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://211.159.189.77:22001/eureka/,http://134.175.12.243:22002/eureka/
+
