@@ -1,1 +1,5 @@
-
+server:
+  port: 2003
+spring:
+  application:
+    name: springboot-elk

@@ -1,1 +1,20 @@
+server:
+  port: 2004
+spring:
+  application:
+    name: springboot-mongodb
+  data:
+    mongodb:
+      uri: mongodb://xx.175.12.xxx:27017/mongodb-demo
 
+eureka:
+  instance:
+    prefer-ip-address: true
+    status-page-url-path: /actuator/info
+    health-check-url-path: /actuator/health
+  client:
+    #此项目不作为客户端注册
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://211.159.189.77:22001/eureka/,http://134.175.12.243:22002/eureka/
