@@ -1,23 +1,20 @@
-package com.seal.mongodb;
+package com.seal.jpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
 /**
  * @author zhiqiang.feng
  * @version 1.0
  * @date-time 2019/6/24 12:57
- * @description springboot整合mongodb
+ * @description springboot整合jpa
  **/
-@EnableMongoRepositories(basePackages = {"com.seal.*"})
 @EnableEurekaClient
 @SpringBootApplication
-public class SpringbootMongodbApplication {
+public class SpringbootJpaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootMongodbApplication.class, args);
+        SpringApplication.run(SpringbootJpaApplication.class, args);
     }
 
 }

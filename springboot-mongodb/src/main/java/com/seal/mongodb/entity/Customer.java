@@ -1,12 +1,24 @@
 package com.seal.mongodb.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Getter
+@Setter
+@ToString
+@Document(collection = "Customer")
 @Data
 public class Customer {
+    /**
+     * 追踪号
+     */
     @Id
-    public String id;
+    private ObjectId id;
     public String firstName;
     public String lastName;
 

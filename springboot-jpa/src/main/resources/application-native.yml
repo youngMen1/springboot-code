@@ -1,11 +1,18 @@
 server:
-  port: 9200
+  port: 9100
 spring:
   application:
-    name: springboot-mongodb
-  data:
-    mongodb:
-      uri: mongodb://xx.175.12.xxx:27017/mongodb-demo
+    name: springboot-jpa
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://211.159.189.77:3306/seal_test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      # 第一次简表create  后面用update
+      ddl-auto: create
+    show-sql: true
 
 eureka:
   instance:
