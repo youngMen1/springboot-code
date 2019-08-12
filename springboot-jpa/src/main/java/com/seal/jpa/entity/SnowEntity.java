@@ -2,10 +2,7 @@ package com.seal.jpa.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author zhiqiang.feng
@@ -15,6 +12,7 @@ import javax.persistence.Id;
  **/
 @Data
 @Entity
+@Table(name = "seal_snow")
 public class SnowEntity {
     @Id
     @GeneratedValue
