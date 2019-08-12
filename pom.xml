@@ -23,6 +23,7 @@
         <module>springboot-elasticsearch</module>
         <module>springboot-jpa</module>
         <module>springboot-mongodb</module>
+        <module>springboot-oauth2</module>
     </modules>
 
 
