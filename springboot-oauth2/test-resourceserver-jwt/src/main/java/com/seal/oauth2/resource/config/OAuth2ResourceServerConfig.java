@@ -26,41 +26,41 @@ import java.io.InputStreamReader;
 @Configuration
 @EnableResourceServer
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
-  
-  @Bean
-  public JwtAccessTokenConverter accessTokenConverter(){
-    JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-    Resource resource =  new ClassPathResource("public.txt");
-    String publicKey;
-    try {
-      publicKey = inputStream2String(resource.getInputStream());
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        Resource resource = new ClassPathResource("public.txt");
+        String publicKey;
+        try {
+            publicKey = inputStream2String(resource.getInputStream());
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        converter.setVerifierKey(publicKey);
+        converter.setAccessTokenConverter(new CustomerAccessTokenConverter());
+        return converter;
     }
-    converter.setVerifierKey(publicKey);
-    converter.setAccessTokenConverter(new CustomerAccessTokenConverter());
-    return converter;
-  }
-  
-  @Bean
-  public TokenStore tokenStore() {
-    return new JwtTokenStore(accessTokenConverter());
-  }
-  
-  @Override
-  public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-    DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-    defaultTokenServices.setTokenStore(tokenStore());
-    resources.tokenServices(defaultTokenServices);
-  }
-  
-  private String inputStream2String(InputStream is) throws IOException {
-    BufferedReader in = new BufferedReader(new InputStreamReader(is));
-    StringBuilder builder = new StringBuilder();
-    String line;
-    while ((line = in.readLine()) != null) {
-      builder.append(line);
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
     }
-    return builder.toString();
-  }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        resources.tokenServices(defaultTokenServices);
+    }
+
+    private String inputStream2String(InputStream is) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
+        StringBuilder builder = new StringBuilder();
+        String line;
+        while ((line = in.readLine()) != null) {
+            builder.append(line);
+        }
+        return builder.toString();
+    }
 }
