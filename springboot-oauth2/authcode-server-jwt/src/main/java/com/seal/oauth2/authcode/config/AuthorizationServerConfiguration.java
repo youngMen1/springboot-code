@@ -1,9 +1,9 @@
 package com.seal.oauth2.authcode.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,8 +12,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhiqiang.feng
@@ -24,9 +32,8 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
  * 添加注解@EnableAuthorizationServer开启授权服务
  * @AllArgsConstructor 使用后添加一个构造函数，该构造函数含有所有已声明字段属性参数
  **/
-@Configuration
-@AllArgsConstructor
 @EnableAuthorizationServer
+@Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -35,15 +42,30 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
+
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        KeyStoreKeyFactory keyStoreKeyFactory =
+                new KeyStoreKeyFactory(new ClassPathResource("mytest.jks"), "mypass".toCharArray());
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("mytest"));
+        converter.setAccessTokenConverter(new CustomerAccessTokenConverter());
+        return converter;
+    }
 
     /**
-     * 使用最基本的InMemoryTokenStore生成token
+     * 注入自定义token生成方式
      *
      * @return
      */
     @Bean
-    public TokenStore memoryTokenStore() {
-        return new InMemoryTokenStore();
+    public TokenEnhancer customerEnhancer() {
+        return new CustomTokenEnhancer();
     }
 
     /**
@@ -58,28 +80,25 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         clients.inMemory()
                 // 用于标识用户ID
                 .withClient("client1")
-                // 授权方式/授权码模式
+                // 授权方式
                 .authorizedGrantTypes("authorization_code", "refresh_token")
                 // 授权范围
                 .scopes("test")
                 // 客户端安全码,secret密码配置从 Spring Security 5.0开始必须以 {bcrypt}+加密后的密码 这种格式填写;
                 .secret(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("123456"));
-
     }
 
     /**
      * 用来配置令牌端点(Token Endpoint)的安全约束.
+     *
      * @param security
      * @throws Exception
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        /* 配置token获取合验证时的策略 */
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()")
-                .allowFormAuthenticationForClients();
+        // 配置token获取合验证时的策略
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
     }
-
 
     /**
      * 用来配置授权（authorization）以及令牌（token）的访问端点和令牌服务(token services)
@@ -89,11 +108,27 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // 配置tokenStore,需要配置userDetailsService，否则refresh_token会报错
-        endpoints.authenticationManager(authenticationManager)
-                .tokenStore(memoryTokenStore())
-                .userDetailsService(userDetailsService);
+
+        // 指定认证管理器
+        endpoints.authenticationManager(authenticationManager);
+        // 指定token存储位置
+        endpoints.tokenStore(tokenStore());
+
+        endpoints.accessTokenConverter(accessTokenConverter());
+        endpoints.userDetailsService(userDetailsService);
+        // 自定义token生成方式
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customerEnhancer(), accessTokenConverter()));
+        endpoints.tokenEnhancer(tokenEnhancerChain);
+
+        // 配置TokenServices参数
+        DefaultTokenServices tokenServices = (DefaultTokenServices) endpoints.getDefaultAuthorizationServerTokenServices();
+        tokenServices.setTokenStore(endpoints.getTokenStore());
+        tokenServices.setSupportRefreshToken(true);
+        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+        // 一天
+        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
+        endpoints.tokenServices(tokenServices);
     }
-
-
 }

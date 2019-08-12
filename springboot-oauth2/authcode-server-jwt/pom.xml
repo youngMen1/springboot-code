@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.seal.oauth2.authcode</groupId>
-    <artifactId>authcode-server</artifactId>
+    <artifactId>authcode-server-jwt</artifactId>
     <version>${parent.version}</version>
     <packaging>jar</packaging>
 
-    <name>authcode-server</name>
-    <description>授权服务器 授权码模式</description>
+    <name>authcode-server-jwt</name>
+    <description>授权服务器-jwt 授权码模式</description>
 
     <parent>
         <artifactId>springboot-oauth2</artifactId>
@@ -22,7 +22,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.seal.oauth2.authcode</groupId>
-    <artifactId>authcode-server</artifactId>
+    <groupId>com.seal.oauth2.resource</groupId>
+    <artifactId>test-resourceserver</artifactId>
     <version>${parent.version}</version>
     <packaging>jar</packaging>
 
-    <name>authcode-server</name>
-    <description>授权服务器 授权码模式</description>
+    <name>test-resourceserver</name>
+    <description>测试资源服务</description>
 
     <parent>
         <artifactId>springboot-oauth2</artifactId>
@@ -25,17 +25,17 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
 
         <dependency>

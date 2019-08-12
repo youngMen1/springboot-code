@@ -15,8 +15,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  * @version 1.0
  * @date-time 2019/8/12 11:11
  * @description 认证相关配置
+ * @EnableWebSecurity 开启权限验证
  **/
-// 开启权限验证
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
