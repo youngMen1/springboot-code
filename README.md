@@ -1,7 +1,10 @@
 # Spring Boot Admin简介
 ## 使用SpringBoot Admin监控SpringCloud微服务
-Spring Boot Admin是一个开源社区项目，用于管理和监控SpringBoot应用程序。 应用程序作为Spring Boot Admin Client向为Spring Boot Admin Server注册（通过HTTP）或使用SpringCloud注册中心（例如Eureka，Consul）发现。 UI是的AngularJs应用程序，展示Spring Boot Admin Client的Actuator端点上的一些监控。常见的功能或者监控如下：
-
+Spring Boot Admin是一个开源社区项目，用于管理和监控SpringBoot应用程序。 
+应用程序作为Spring Boot Admin Client向为Spring Boot Admin Server注册（通过HTTP）
+或使用SpringCloud注册中心（例如Eureka，Consul）发现。 UI是的AngularJs应用程序，
+展示Spring Boot Admin Client的Actuator端点上的一些监控。
+常见的功能或者监控如下：
 显示健康状况
 显示详细信息，例如
 JVM和内存指标
