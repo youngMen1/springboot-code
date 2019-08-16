@@ -5,16 +5,16 @@
 
     <groupId>com.seal.code</groupId>
     <artifactId>springboot-codeproduction</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${parent.version}</version>
+    <packaging>jar</packaging>
 
     <name>springboot-codeproduction</name>
     <description>生产mapper和entity</description>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>springboot-code</artifactId>
+        <groupId>com.seal</groupId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -38,10 +38,10 @@
 
         <!--连接sqlServer驱动包-->
         <!--<dependency>-->
-            <!--<groupId>com.microsoft.sqlserver</groupId>-->
-            <!--<artifactId>mssql-jdbc</artifactId>-->
-            <!--<version>6.2.0.jre8</version>-->
-            <!--<scope>runtime</scope>-->
+        <!--<groupId>com.microsoft.sqlserver</groupId>-->
+        <!--<artifactId>mssql-jdbc</artifactId>-->
+        <!--<version>6.2.0.jre8</version>-->
+        <!--<scope>runtime</scope>-->
         <!--</dependency>-->
 
         <dependency>
