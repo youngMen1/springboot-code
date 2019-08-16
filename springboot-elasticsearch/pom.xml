@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>springboot-elasticsearch</name>
-    <description>springboot整合es</description>
+    <description>springboot整合elasticsearch</description>
 
     <parent>
         <artifactId>springboot-code</artifactId>
