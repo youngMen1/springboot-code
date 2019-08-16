@@ -1,0 +1,9 @@
+package @basePackage.entity.req;
+
+$import
+import lombok.Data;
+
+@Data
+public class Req$Entity$TypeParam {
+$fieldData
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 读取配置文件路径 -->
+    <properties resource="application.properties"/>
+    <context id="default" targetRuntime="MyBatis3">
+        <!-- 生成文件的注释，type里写的是你的实现类的类全路径 -->
+        <commentGenerator></commentGenerator>
+        <!--数据库连接信息 -->
+        <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}" password="${jdbc.password}">
+        </jdbcConnection>
+        <!--<jdbcConnection driverClass="${spring.datasource.driverClassName}" connectionURL="${spring.datasource.url}"-->
+        <!--userId="${spring.datasource.username}" password="${spring.datasource.password}">-->
+        <!--</jdbcConnection>-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成Model类存放位置 src/main/java-->
+        <javaModelGenerator targetPackage="${model.package}.entity" targetProject="${file.path}">
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="false"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="felse"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件存放位置 -->
+        <sqlMapGenerator targetPackage="${model.package}.xml" targetProject="${file.path}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--自定义xml sql逻辑-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${model.package}.mapper"
+                             targetProject="${file.path}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="airport_city_country" domainObjectName="AirportCityCountry"/>-->
+        <!--<table tableName="banner_travel_deals" domainObjectName="BannerTravelDeals"/>-->
+        <!--<table tableName="price_range" domainObjectName="PriceRange"/>-->
+        <!--<table tableName="temporary_transaction" domainObjectName="TemporaryTransaction"/>-->
+        <table tableName=""/>
+    </context>
+
+</generatorConfiguration>

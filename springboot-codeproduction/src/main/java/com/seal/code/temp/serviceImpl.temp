@@ -1,0 +1,54 @@
+package @basePackage.service.impl;
+
+import @basePackage.service.@EntityService;
+import @basePackage.entity.bo.*;
+import @basePackage.util.BeanUtil;
+import @basePackage.entity.model.@EntityModel;
+import @basePackage.mapper.@EntityMapper;
+import java.util.Date;
+
+@Service
+public class @EntityServiceImpl implements @EntityService {
+
+    @Autowired
+    @EntityMapper @entityMapper;
+
+    @Transactional
+    @Override
+    public int add(@EntityAddBO @entityAddBO) {
+        Date date = new Date();
+        @EntityModel @entityModel = BeanUtil.copyObject(@entityAddBO, @EntityModel.class);
+        @entityModel.setCreateDatetime(date);
+        @entityModel.setUpdateDatetime(date);
+        @entityModel.setCreateBy("");//TODO
+        @entityModel.setUpdateBy("");
+        @entityModel.setRecordState(1);
+        @entityMapper.insert(@entityModel);
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer id) {
+        @entityMapper.delete(id);
+        return 0;
+    }
+
+    @Transactional
+    @Override
+    public int modify(@EntityModifyBO @entityModifyBO) {
+        Date date = new Date();
+        @EntityModel @entityModel = BeanUtil.copyObject(@@entityModifyBO, @EntityModel.class);
+        @entityModel.setUpdateDatetime(date);
+        @entityModel.setUpdateBy("");//TODO
+        @entityMapper.update(@entityModel);
+        return 0;
+    }
+
+    @Override
+    public @EntityGetByIdResultBO getById(Integer id) {
+        @EntityModel @entityModel = @entityMapper.findById(id);
+        @EntityGetByIdResultBO @entityGetByIdResultBO = BeanUtil.copyObject(@entityModel, @EntityGetByIdResultBO.class);
+        return @entityGetByIdResultBO;
+    }
+
+}

@@ -1,0 +1,9 @@
+package @basePackage.entity.bo;
+
+$import
+import lombok.Data;
+
+@Data
+public class $BOTypeBO {
+$fieldData
+}

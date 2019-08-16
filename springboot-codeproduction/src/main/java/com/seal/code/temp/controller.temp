@@ -1,0 +1,72 @@
+package @basePackage.controller;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+import com.sigma.sigmacore.web.SigmaResponse;
+import com.sigma.sigmacore.web.SigmaResponseHeader;
+import @basePackage.service.@EntityService;
+import javax.validation.Valid;
+import @basePackage.entity.bo.*;
+import @basePackage.entity.param.req.*;
+import @basePackage.entity.param.resp.Resp@EntityGetByIdParam;
+import @basePackage.util.BeanUtil;
+import java.util.HashMap;
+
+@RestController
+@RequestMapping(value = "/@entity")
+@Api(value = "@entity", tags = "@entity")
+public class @EntityController {
+
+    @Autowired
+    private @EntityService @entityService;
+
+    @PostMapping
+    @ApiOperation(value = "add @entity")
+    public SigmaResponse add(@RequestBody @Valid Req@EntityAddParam req@EntityAddParam) {
+        @EntityAddBO @entityAddBO = BeanUtil.copyObject(req@EntityAddParam, @EntityAddBO.class);
+        @entityService.add(@entityAddBO);
+
+        SigmaResponse sigmaResponse = new SigmaResponse();
+        sigmaResponse.setHeader(SigmaResponseHeader.SUCCESS);
+        sigmaResponse.setData(new HashMap<>());
+        return sigmaResponse;
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "modify @entity")
+    public SigmaResponse modify(@PathVariable("id") Integer id, @RequestBody @Valid Req@EntityModifyParam @entityModifyParam) {
+        @EntityModifyBO @entityModifyBO = BeanUtil.copyObject(@entityModifyParam, @EntityModifyBO.class);
+        @entityModifyBO.setId(id);
+        @entityService.modify(@entityModifyBO);
+
+        SigmaResponse sigmaResponse = new SigmaResponse();
+        sigmaResponse.setHeader(SigmaResponseHeader.SUCCESS);
+        sigmaResponse.setData(new HashMap<>());
+        return sigmaResponse;
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "delete @entity")
+    public SigmaResponse delete(@PathVariable("id") Integer id) {
+        @entityService.delete(id);
+
+        SigmaResponse sigmaResponse = new SigmaResponse();
+        sigmaResponse.setHeader(SigmaResponseHeader.SUCCESS);
+        sigmaResponse.setData(new HashMap<>());
+        return sigmaResponse;
+    }
+
+    @GetMapping("/search")
+    @ApiOperation(value = "get @entity by id")
+    public SigmaResponse<Resp@EntityGetByIdParam> getById(Req@EntityGetByIdParam req@EntityGetByIdParam) {
+        @EntityGetByIdBO @entityGetByIdBO = BeanUtil.copyObject(req@EntityGetByIdParam, @EntityGetByIdBO.class);
+        Resp@EntityGetByIdParam resp@EntityGetByIdParam = @entityService.getById(id);
+
+        SigmaResponse<Resp@EntityGetByIdParam> sigmaResponse = new SigmaResponse();
+        sigmaResponse.setHeader(SigmaResponseHeader.SUCCESS);
+        sigmaResponse.setData(resp@EntityGetByIdParam);
+        return sigmaResponse;
+    }
+
+}
