@@ -2,7 +2,6 @@ package com.seal.mongodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  * @description springboot整合mongodb
  **/
 @EnableMongoRepositories(basePackages = {"com.seal.*"})
-@EnableEurekaClient
 @SpringBootApplication
 public class SpringbootMongodbApplication {
 
