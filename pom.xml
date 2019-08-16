@@ -24,6 +24,12 @@
         <module>springboot-jpa</module>
         <module>springboot-mongodb</module>
         <module>springboot-oauth2</module>
+        <module>springboot-log</module>
+        <module>springboot-swagger</module>
+        <module>springboot-websocker</module>
+        <module>springboot-codeproduction</module>
+        <module>springboot-fastdfs</module>
+        <module>springboot-docker</module>
     </modules>
 
 
