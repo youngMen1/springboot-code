@@ -30,7 +30,8 @@ public class DeleteMethodGenerator extends
             FullyQualifiedJavaType type = new FullyQualifiedJavaType(
                     introspectedTable.getPrimaryKeyType());
             importedTypes.add(type);
-            method.addParameter(new Parameter(type, "key")); //$NON-NLS-1$
+            // $NON-NLS-1$
+            method.addParameter(new Parameter(type, "key"));
         } else {
             // no primary key class - fields are in the base class
             // if more than one PK field, then we need to annotate the
@@ -41,7 +42,8 @@ public class DeleteMethodGenerator extends
             boolean annotate = introspectedColumns.size() > 1;
             if (annotate) {
                 importedTypes.add(new FullyQualifiedJavaType(
-                        "org.apache.ibatis.annotations.Param")); //$NON-NLS-1$
+                        // $NON-NLS-1$
+                        "org.apache.ibatis.annotations.Param"));
             }
             StringBuilder sb = new StringBuilder();
             for (IntrospectedColumn introspectedColumn : introspectedColumns) {

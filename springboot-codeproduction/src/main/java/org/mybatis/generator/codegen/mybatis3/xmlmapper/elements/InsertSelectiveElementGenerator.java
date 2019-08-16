@@ -54,7 +54,8 @@ public class InsertSelectiveElementGenerator extends
         if (Config.model_flag) {
             parameterType = new FullyQualifiedJavaType(StringUtil.importTran(introspectedTable));
         }
-        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
+        // $NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterType",
                 parameterType.getFullyQualifiedName()));
 
         context.getCommentGenerator().addComment(answer);
