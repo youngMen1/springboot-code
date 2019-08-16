@@ -1,0 +1,23 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: springboot-fastdfs
+  # 文件服务器地址
+  file_server_addr: 47.98.248.154:80
+  # 最大连接数 并发量较大的话可加大该连接数
+  max_storage_connection: 10
+  ## 超时配置
+  fastdfs:
+    connect_timeout_in_seconds: 100000
+    network_timeout_in_seconds: 300000
+    charset: UTF-8
+    # token 防盗链功能
+    http_anti_steal_token: true
+    # 密钥
+    http_secret_key: Yundai365
+    # TrackerServer port
+    http_tracker_http_port: 81
+    #Tracker Server, if more than one, separate with ","
+    tracker_servers: 47.98.248.154:22122
+
