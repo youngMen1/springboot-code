@@ -25,10 +25,12 @@ public class StringUtil {
      */
     public static String importTran(IntrospectedTable introspectedTable) {
         String packages = introspectedTable.getBaseRecordType();
-        return importTran(packages);
+        return packages;
+        // return importTran(packages);
     }
 
     /**
+     * utech
      * 导入实体 转换包
      *
      * @return
@@ -41,6 +43,7 @@ public class StringUtil {
         sb.append(packages.substring(i + 8, packages.length()));
         sb.append("Model");
 //        String modelPath = packages.substring(0, i) + ".entity.model." + packages.substring(i + 8, packages.length()) + "Model";
+        System.out.println("----------------导入实体-------------" + sb.toString());
         return sb.toString();
     }
 
