@@ -66,7 +66,7 @@ public class Config {
     public static List<TableConfig> tableConfigList;
 
     static {
-        // 读取配置文件
+        // todo 读取配置文件
         InputStream inputStream = Surrogate.Generator.class.getResourceAsStream("/application.properties");
         try {
             ResourceBundle resource = new PropertyResourceBundle(inputStream);
