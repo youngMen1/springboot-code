@@ -46,6 +46,11 @@
             <artifactId>mapper</artifactId>
             <version>${tk.mybatis.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tz.generator</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
@@ -64,6 +69,28 @@
                     <!--<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>-->
                     <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
                 </configuration>
+
+                <dependencies>
+                    <!--mysql驱动包-->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.46</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <!--集成通用mapper依赖-->
+                    <dependency>
+                        <groupId>tk.mybatis</groupId>
+                        <artifactId>mapper</artifactId>
+                        <version>3.4.2</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.tz.generator</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+
             </plugin>
 
             <plugin>

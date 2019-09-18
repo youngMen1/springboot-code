@@ -66,10 +66,15 @@
             <!-- <property name="suppressDate" value="true" />-->
         </commentGenerator>
 
-        <!--数据库连接-->
+        <!--mysql数据库连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://xxx.xxx.x.xx:3306/gdfl_sso?characterEncoding=utf8"
                         userId="xxxx" password="xxxxxx" />
+
+        <!--sqlServer数据库连接-->
+        <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"-->
+                        <!--connectionURL="jdbc:sqlserver://.xxx.1.xxx:1433;Databasename=GF_HR"-->
+                        <!--userId="xxx" password="xxx" />-->
 
         <!-- 类型转换 -->
         <javaTypeResolver >

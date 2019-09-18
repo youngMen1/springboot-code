@@ -7,7 +7,7 @@
     <result column="user_type" property="userType" jdbcType="INTEGER" />
   </resultMap>
   
-  <!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2019-09-18 08:40:05 ### -->
+  <!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2019-09-18 09:12:30 ### -->
 
 
 

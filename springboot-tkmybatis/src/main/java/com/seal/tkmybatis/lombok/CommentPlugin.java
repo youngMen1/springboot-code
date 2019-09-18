@@ -60,9 +60,10 @@ public class CommentPlugin extends PluginAdapter {
             element.addJavaDocLine(" *");
         }
 
-        element.addJavaDocLine(" * Table:     " + introspectedTable.getFullyQualifiedTable());
-        element.addJavaDocLine(" * Column:    " + introspectedColumn.getActualColumnName());
-        element.addJavaDocLine(" * Nullable:  " + introspectedColumn.isNullable());
+        // TODO 不想要 Table这些
+//        element.addJavaDocLine(" * Table:     " + introspectedTable.getFullyQualifiedTable());
+//        element.addJavaDocLine(" * Column:    " + introspectedColumn.getActualColumnName());
+//        element.addJavaDocLine(" * Nullable:  " + introspectedColumn.isNullable());
         element.addJavaDocLine(" */");
     }
 
