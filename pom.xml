@@ -30,6 +30,7 @@
         <module>springboot-codeproduction</module>
         <module>springboot-fastdfs</module>
         <module>springboot-docker</module>
+        <module>springboot-tkmybatis</module>
     </modules>
 
 

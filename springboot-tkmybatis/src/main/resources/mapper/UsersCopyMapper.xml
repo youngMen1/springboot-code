@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seal.tkmybatis.mapper.UsersCopyMapper" >
+  <resultMap id="BaseResultMap" type="com.seal.tkmybatis.model.UsersCopy" >
+    
+    <!-- id -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    
+    <!-- 关联user_auth表 -->
+    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    
+    <!-- 安科id -->
+    <result column="anke_id" property="ankeId" jdbcType="VARCHAR" />
+    
+    <!-- 手机号 -->
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    
+    <!-- 举荐人 -->
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    
+    <!-- openId -->
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    
+    <!-- 同一用户，对同一个微信开放平台下的不同应用，unionid是相同的。 -->
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    
+    <!-- 微信用户名 -->
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    
+    <!-- 性别 0：未知、1：男、2：女 -->
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    
+    <!-- 城市 -->
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    
+    <!-- 省份 -->
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    
+    <!-- 国家 -->
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    
+    <!-- 头像地址 -->
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    
+    <!-- 账户来源 -->
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    
+    <!-- 创建时间 -->
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    
+    <!-- '状态 1:可用 0:不可用' -->
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    
+    <!-- 微信登录是否绑定(默认为0) -->
+    <result column="weixin_binding" property="weixinBinding" jdbcType="VARCHAR" />
+    
+    <!-- 员工号登录是否绑定(0:未绑定 1:绑定) -->
+    <result column="staff_binding" property="staffBinding" jdbcType="VARCHAR" />
+    
+    <!-- 手机登录是否绑定(0:未绑定 1:已绑定) -->
+    <result column="phone_binding" property="phoneBinding" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2019-09-18 08:40:05 ### -->
+
+
+
+  <!-- Your codes goes here!!! -->
+  
+</mapper>
