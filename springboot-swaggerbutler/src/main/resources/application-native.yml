@@ -1,0 +1,16 @@
+server:
+  port: 11000
+spring:
+  application:
+    name: springboot-swaggerbutler
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:60000/eureka
+swagger:
+  butler:
+    auto-generate-from-zuul-routes: true
+    generate-routes: order-services, customer-service, sso-rest, gpush-sms, vip-service, ai-service, contract-service, goods-service, message-service, payment-service, vip-service, anke-api-service, business-token
+  resources:
+    swagger-service-b:
+      api-docs-path: /xxx/v2/api-docs

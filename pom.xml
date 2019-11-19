@@ -31,6 +31,8 @@
         <module>springboot-fastdfs</module>
         <module>springboot-docker</module>
         <module>springboot-tkmybatis</module>
+        <module>springboot-postgresql</module>
+        <module>springboot-swaggerbutler</module>
     </modules>
 
 
