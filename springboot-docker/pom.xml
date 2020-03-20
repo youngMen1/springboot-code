@@ -20,11 +20,12 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <docker.image.prefix>springio</docker.image.prefix>
+        <docker.image.prefix>fengzhiqiang</docker.image.prefix>
+
     </properties>
 
     <dependencies>
-
+        <!--WEB-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -57,6 +58,8 @@
                 <configuration>
                     <!--注意：${docker.image.prefix} 为你在 docker官方仓库的用户名，如果你不需要上传镜像,随便填-->
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!--来源:https://www.cnblogs.com/dalianpai/p/11800892.html-->
+                    <dockerHost>http://47.107.152.93:2375</dockerHost>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>
                         <resource>
