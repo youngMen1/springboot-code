@@ -25,6 +25,7 @@
         <module>springboot-mongodb</module>
         <module>springboot-oauth2</module>
         <module>springboot-log</module>
+        <module>springboot-lock</module>
         <module>springboot-swagger</module>
         <module>springboot-websocker</module>
         <module>springboot-codeproduction</module>
