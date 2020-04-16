@@ -29,8 +29,13 @@ public class TestController {
     @Autowired
     private TestService testService;
 
+    /**
+     * 测试案例:发送邮件
+     * @param mail
+     * @return
+     */
     @PostMapping("send")
-    @ApiOperation(value = "sendMail", notes = "sendMail")
+    @ApiOperation(value = "sendMail", notes = "发送邮件")
     public ServerResponse sendMail(@RequestBody @Validated Mail mail) {
         return testService.send(mail);
     }
