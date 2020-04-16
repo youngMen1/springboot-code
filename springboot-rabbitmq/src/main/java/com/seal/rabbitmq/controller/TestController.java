@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhiqiang.feng
  * @version 1.0
  * @date-time 2019/9/3 10:07
- * @description 发送邮件
+ * @description 测试案例
  **/
-@Api(value = "TestController", tags = "发送邮件")
+@Api(value = "TestController", tags = "测试案例")
 @RestController
 @RequestMapping(value = "/api/test/")
 @Slf4j
@@ -30,7 +30,9 @@ public class TestController {
     private TestService testService;
 
     /**
-     * 测试案例:发送邮件
+     * 案例一、保证消息100%投递成功并被消费
+     * 发送邮件
+     *
      * @param mail
      * @return
      */
@@ -39,4 +41,6 @@ public class TestController {
     public ServerResponse sendMail(@RequestBody @Validated Mail mail) {
         return testService.send(mail);
     }
+
+
 }

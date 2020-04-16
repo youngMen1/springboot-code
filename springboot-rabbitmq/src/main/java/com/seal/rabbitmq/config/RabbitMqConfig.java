@@ -4,10 +4,7 @@ import com.seal.rabbitmq.common.Constant;
 import com.seal.rabbitmq.service.MsgLogService;
 import com.seal.rabbitmq.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -16,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @Slf4j
@@ -28,7 +27,31 @@ public class RabbitMqConfig {
     private MsgLogService msgLogService;
 
     /**
+     * 发送邮件
+     */
+    public static final String MAIL_QUEUE_NAME = "mail.queue";
+    public static final String MAIL_EXCHANGE_NAME = "mail.exchange";
+    public static final String MAIL_ROUTING_KEY_NAME = "mail.routing.key";
+
+    @Bean
+    public Queue mailQueue() {
+        return new Queue(MAIL_QUEUE_NAME, true);
+    }
+
+    @Bean
+    public DirectExchange mailExchange() {
+        return new DirectExchange(MAIL_EXCHANGE_NAME, true, false);
+    }
+
+    @Bean
+    public Binding mailBinding() {
+        return BindingBuilder.bind(mailQueue()).to(mailExchange()).with(MAIL_ROUTING_KEY_NAME);
+    }
+
+
+    /**
      * 消息是否成功发送到Exchange，消息确认ConfirmCallback
+     *
      * @return
      */
     @Bean
@@ -62,49 +85,76 @@ public class RabbitMqConfig {
     }
 
 
-    /**
-     * 登录日志
-     */
-    public static final String LOGIN_LOG_QUEUE_NAME = "login.log.queue";
-    public static final String LOGIN_LOG_EXCHANGE_NAME = "login.log.exchange";
-    public static final String LOGIN_LOG_ROUTING_KEY_NAME = "login.log.routing.key";
 
-    @Bean
-    public Queue logUserQueue() {
-        return new Queue(LOGIN_LOG_QUEUE_NAME, true);
-    }
-
-    @Bean
-    public DirectExchange logUserExchange() {
-        return new DirectExchange(LOGIN_LOG_EXCHANGE_NAME, true, false);
-    }
-
-    @Bean
-    public Binding logUserBinding() {
-        return BindingBuilder.bind(logUserQueue()).to(logUserExchange()).with(LOGIN_LOG_ROUTING_KEY_NAME);
-    }
+    /*----------------------------------------------------------------------------死信队列(deadletter queue)------------------------------------------------------------------------------*/
 
 
     /**
-     * 发送邮件
+     * 死信队列 交换机标识符
      */
-    public static final String MAIL_QUEUE_NAME = "mail.queue";
-    public static final String MAIL_EXCHANGE_NAME = "mail.exchange";
-    public static final String MAIL_ROUTING_KEY_NAME = "mail.routing.key";
+    private static final String DEAD_LETTER_QUEUE_KEY = "x-dead-letter-exchange";
+    /**
+     * 死信队列交换机绑定键标识符
+     */
+    private static final String DEAD_LETTER_ROUTING_KEY = "x-dead-letter-routing-key";
 
-    @Bean
-    public Queue mailQueue() {
-        return new Queue(MAIL_QUEUE_NAME, true);
+    /**
+     * 死信队列跟交换机类型没有关系 不一定为directExchange  不影响该类型交换机的特性.
+     *
+     * @return the exchange
+     */
+    @Bean("deadLetterExchange")
+    public Exchange deadLetterExchange() {
+        return ExchangeBuilder.directExchange("DL_EXCHANGE").durable(true).build();
     }
 
-    @Bean
-    public DirectExchange mailExchange() {
-        return new DirectExchange(MAIL_EXCHANGE_NAME, true, false);
+    /**
+     * 声明一个死信队列.
+     * x-dead-letter-exchange   对应  死信交换机
+     * x-dead-letter-routing-key  对应 死信队列
+     *
+     * @return the queue
+     */
+    @Bean("deadLetterQueue")
+    public Queue deadLetterQueue() {
+        Map<String, Object> args = new HashMap<>(16);
+        // x-dead-letter-exchange    声明  死信交换机
+        args.put(DEAD_LETTER_QUEUE_KEY, "DL_EXCHANGE");
+        // x-dead-letter-routing-key    声明 死信路由键
+        args.put(DEAD_LETTER_ROUTING_KEY, "KEY_R");
+        return QueueBuilder.durable("DL_QUEUE").withArguments(args).build();
     }
 
-    @Bean
-    public Binding mailBinding() {
-        return BindingBuilder.bind(mailQueue()).to(mailExchange()).with(MAIL_ROUTING_KEY_NAME);
+    /**
+     * 定义死信队列转发队列.
+     *
+     * @return the queue
+     */
+    @Bean("redirectQueue")
+    public Queue redirectQueue() {
+        return QueueBuilder.durable("REDIRECT_QUEUE").build();
     }
+
+    /**
+     * 死信路由通过 DL_KEY 绑定键绑定到死信队列上.
+     *
+     * @return the binding
+     */
+    @Bean
+    public Binding deadLetterBinding() {
+        return new Binding("DL_QUEUE", Binding.DestinationType.QUEUE, "DL_EXCHANGE", "DL_KEY", null);
+
+    }
+
+    /**
+     * 死信路由通过 KEY_R 绑定键绑定到死信队列上.
+     *
+     * @return the binding
+     */
+    @Bean
+    public Binding redirectBinding() {
+        return new Binding("REDIRECT_QUEUE", Binding.DestinationType.QUEUE, "DL_EXCHANGE", "KEY_R", null);
+    }
+
 
 }
