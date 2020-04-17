@@ -35,6 +35,8 @@
         <module>springboot-postgresql</module>
         <module>springboot-swaggerbutler</module>
         <module>springboot-spring-security</module>
+        <module>springboot-rabbitmq</module>
+        <module>springboot-redis</module>
     </modules>
 
 
