@@ -1,0 +1,11 @@
+syntax = "proto2";
+package com.seal.protobuf.msg;
+option java_package = "com.seal.protobuf.msg";
+option java_outer_classname = "ProtoDemo";
+message demo{
+    required int32 id = 1;
+    required string name = 2;
+    optional string email = 3;
+    repeated string friends = 4;
+    
+}
