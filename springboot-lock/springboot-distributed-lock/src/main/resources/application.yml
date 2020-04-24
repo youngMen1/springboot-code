@@ -1,0 +1,20 @@
+server:
+  port: 1002
+join:
+  team:
+    key: joinTeam
+    time: 1800
+spring:
+  application:
+    name: springboot-distributed-lock
+  redis:
+    host: 47.107.152.93
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 10
+        max-wait: -1
+        min-idle: 0
+    password: 12345
+    port: 6379
+    timeout: 20000
