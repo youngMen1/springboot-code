@@ -13,7 +13,7 @@ public class RedisReentrantLockTemplateTest {
 
     @Test
     public void tryTest() throws InterruptedException {
-        JedisPool jp = new JedisPool("47.107.152.93", 6379);
+        JedisPool jp = new JedisPool("47.XXX.XXX.93", 6379);
         final RedisDistributedLockTemplate template = new RedisDistributedLockTemplate(jp);
 
         int size = 100;

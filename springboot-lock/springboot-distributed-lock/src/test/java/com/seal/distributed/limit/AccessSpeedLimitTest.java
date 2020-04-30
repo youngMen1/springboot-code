@@ -18,7 +18,7 @@ public class AccessSpeedLimitTest {
 
     @Before
     public void before() {
-        jedisPool = new JedisPool("47.107.152.93", 6379);
+        jedisPool = new JedisPool("47.XXX.XXX.93", 6379);
     }
 
     /**
