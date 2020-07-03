@@ -38,6 +38,7 @@
         <module>springboot-rabbitmq</module>
         <module>springboot-redis</module>
         <module>springboot-threadpool</module>
+        <module>springboot-protobuf</module>
     </modules>
 
 

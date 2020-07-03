@@ -8,9 +8,12 @@
 ## springboot 整合swagger
 ## springboot 整合postgresql
 ## springboot 整合tkmybatis
+## springboot 整合rabbitmq
+## springboot 整合protobuf
 ## springboot 整合websocker
 ## springboot 整合spring security
-## springboot 整合springboot-threadpool
+## springboot 整合threadpool 线程池
+## springboot 整合Prometheus + Grafana 实现监控告警
 
 
 
