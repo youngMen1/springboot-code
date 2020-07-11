@@ -39,6 +39,8 @@
         <module>springboot-redis</module>
         <module>springboot-threadpool</module>
         <module>springboot-protobuf</module>
+        <module>springboot-actuator-prometheus</module>
+        <module>springboot-apollo</module>
     </modules>
 
 
