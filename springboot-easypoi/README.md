@@ -8,6 +8,7 @@
 
 ## 其他开源excel
 ### 阿里开源EXCEL
+阿里开源（EasyExcel）导出EXCEL: `https://blog.csdn.net/qq_35206261/article/details/88579151`
 EasyExcel的github地址：`https://github.com/alibaba/easyexcel`
 ``` 
 <!-- 阿里开源EXCEL -->
