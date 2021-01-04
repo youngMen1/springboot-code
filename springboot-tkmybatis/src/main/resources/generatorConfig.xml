@@ -68,8 +68,8 @@
 
         <!--mysql数据库连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://xxx.xxx.x.xx:3306/gdfl_sso?characterEncoding=utf8"
-                        userId="xxxx" password="xxxxxx" />
+                        connectionURL="jdbc:mysql://192.168.1.28:3306/gdfl_prd2?characterEncoding=utf8"
+                        userId="root" password="Gdfl@123456" />
 
         <!--sqlServer数据库连接-->
         <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"-->
