@@ -45,7 +45,7 @@
         <!--<table tableName="banner_travel_deals" domainObjectName="BannerTravelDeals"/>-->
         <!--<table tableName="price_range" domainObjectName="PriceRange"/>-->
         <!--<table tableName="temporary_transaction" domainObjectName="TemporaryTransaction"/>-->
-        <table tableName=""/>
+        <table tableName="temporary_transaction" domainObjectName="GroupClub"/>
     </context>
 
 </generatorConfiguration>

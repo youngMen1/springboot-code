@@ -41,6 +41,7 @@
         <module>springboot-protobuf</module>
         <module>springboot-actuator-prometheus</module>
         <module>springboot-apollo</module>
+        <module>springboot-easypoi</module>
     </modules>
 
 
