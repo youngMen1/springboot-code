@@ -18,6 +18,7 @@ public class ContractDto {
 
     @NotBlank(message = "到款单号不能为空")
     @Excel(name = "到款单号", orderNum = "0", width = 15)
+    @NotBlank
     private String arrivalNumber;
 
     @Excel(name = "到款凭证号", orderNum = "1", width = 15)

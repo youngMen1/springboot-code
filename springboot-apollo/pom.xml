@@ -6,6 +6,8 @@
     <groupId>com.seal.apollo</groupId>
     <artifactId>springboot-apollo</artifactId>
     <version>${parent.version}</version>
+    <packaging>pom</packaging>
+
     <name>springboot-apollo</name>
     <description>Spring Boot 2.0 整合携程Apollo配置中心</description>
 

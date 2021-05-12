@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>springboot-lock</name>
-    <description>重复提交</description>
+    <description>分布式锁</description>
 
     <parent>
         <artifactId>springboot-lock</artifactId>
