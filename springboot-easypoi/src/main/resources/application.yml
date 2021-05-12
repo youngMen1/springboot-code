@@ -9,8 +9,8 @@ spring:
     name: springboot-easypoi
   datasource:
     url: jdbc:mysql://192.xxx.1.xxxx:xxxx/test?useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 123456
+    username: xxxx
+    password: xxxx
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
     filters: stat
