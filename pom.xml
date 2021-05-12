@@ -42,6 +42,7 @@
         <module>springboot-actuator-prometheus</module>
         <module>springboot-apollo</module>
         <module>springboot-easypoi</module>
+        <module>springboot-admin</module>
     </modules>
 
 

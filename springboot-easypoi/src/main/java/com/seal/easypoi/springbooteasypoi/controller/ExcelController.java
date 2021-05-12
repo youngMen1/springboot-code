@@ -1,16 +1,23 @@
 package com.seal.easypoi.springbooteasypoi.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.seal.easypoi.springbooteasypoi.dao.AreaBaseMapper;
+import com.seal.easypoi.springbooteasypoi.dao.AreaMapper;
+import com.seal.easypoi.springbooteasypoi.dao.ArrivalMapper;
+import com.seal.easypoi.springbooteasypoi.dao.BankAreaMapper;
+import com.seal.easypoi.springbooteasypoi.dto.ContractDto;
 import com.seal.easypoi.springbooteasypoi.dto.PersonExportDTO;
+import com.seal.easypoi.springbooteasypoi.entity.Area;
 import com.seal.easypoi.springbooteasypoi.utils.ExcelUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author fengzhiqiang
@@ -19,6 +26,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/excel/")
 public class ExcelController {
+
+    @Resource
+    private AreaMapper areaMapper;
+    @Resource
+    private ArrivalMapper arrivalMapper;
+    @Resource
+    private BankAreaMapper bankAreaMapper;
+    @Resource
+    private AreaBaseMapper areaBaseMapper;
 
     @GetMapping("exportInfo")
     public void exportExcel(HttpServletResponse response) {
@@ -68,13 +84,71 @@ public class ExcelController {
      */
     @PostMapping("import")
     public Object importExcel(@RequestParam("file") MultipartFile file) {
-        List<PersonExportDTO> list = null;
+        List<Area> list;
+        int i = 0;
         try {
-            list = ExcelUtils.importExcel(file, PersonExportDTO.class);
-            System.out.println(list.toString());
+            list = ExcelUtils.importExcel(file, Area.class);
+            int total = areaMapper.batchInsertMember(list);
+            System.out.println("保存条数:=" + total);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list.toString();
+        return i;
+    }
+
+
+    /**
+     * 导入区域信息
+     *
+     * @param file
+     */
+    @PostMapping("importArea")
+    public Object importArea(@RequestParam("file") MultipartFile file) {
+        List<Area> list;
+        int total = 0;
+        try {
+            list = ExcelUtils.importExcel(file, Area.class);
+            for (Area area : list) {
+                List<String> stringList = Arrays.asList(area.getAreaName().split(","));
+                // 最后一条
+                String areaName = stringList.get(stringList.size() - 1);
+                // 最后第二条
+                String parentName = stringList.get(stringList.size() - 2);
+                List<Area> areaParentNames = areaMapper.selectList(Wrappers.lambdaQuery(Area.class)
+                        .eq(Area::getAreaName, parentName));
+                if (!CollectionUtils.isEmpty(areaParentNames)) {
+                    if (areaParentNames.size() > 1) {
+                        for (Area area1 : areaParentNames) {
+                            if (area.getAreaCode().substring(0, 2).equals(area1.getAreaCode().substring(0, 2))) {
+                                Area area2 = new Area();
+                                area2.setAreaCode(area.getAreaCode());
+                                area2.setAreaName(areaName);
+                                area2.setLevel(stringList.size() - 1);
+                                area2.setParentCode(area1.getAreaCode());
+                                areaMapper.insert(area2);
+                                total++;
+                            }
+                        }
+                    } else {
+                        Area area2 = new Area();
+                        area2.setAreaCode(area.getAreaCode());
+                        area2.setAreaName(areaName);
+                        area2.setLevel(stringList.size() - 1);
+                        area2.setParentCode(areaParentNames.get(0).getAreaCode());
+                        areaMapper.insert(area2);
+                        total++;
+                    }
+                }
+            }
+            System.out.println("保存条数:=" + total);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
+
+    @PostMapping("test")
+    public Object test(@Validated @RequestBody ContractDto contractDto) {
+        return null;
     }
 }

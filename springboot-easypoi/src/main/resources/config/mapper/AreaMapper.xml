@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seal.easypoi.springbooteasypoi.dao.AreaMapper">
+    <insert id="batchInsertMember" parameterType="java.util.List">
+        insert into area(area_code,
+        area_name,level,parent_code)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.code},
+            #{item.areaName},
+            #{item.level},
+            #{item.parentCode}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>
