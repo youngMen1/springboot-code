@@ -6,6 +6,7 @@
     <groupId>com.seal</groupId>
     <artifactId>springboot-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>springboot-admin</name>
     <description>SpringBoot Admin监控SpringCloud微服务</description>
