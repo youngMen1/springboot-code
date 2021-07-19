@@ -1,0 +1,25 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: springboot-screw
+  ######## DataSource 使用hikariCP数据源 #########
+  datasource:
+    url: jdbc:mysql://192.168.1.202:3306/saas_base?useUnicode=true&characterEncoding=UTF-8
+    username: saas_base
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 1
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20

@@ -43,6 +43,7 @@
         <module>springboot-apollo</module>
         <module>springboot-easypoi</module>
         <module>springboot-admin</module>
+        <module>springboot-screw</module>
     </modules>
 
 
